@@ -1,0 +1,14 @@
+body {
+  padding-top: 5rem;
+  background-color: #000000 !important;
+}
+
+.App {
+  margin: 3em auto;
+  max-width: 50em;
+  margin-top: 3.5%;
+}
+
+.App h1 {
+  text-align: center;
+}
