@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) => {
     case type.SET_SEARCHING:
       return {
         ...state,
-        searches: action.text
+        searching: action.text
       };
     case type.GET_SEARCHING:
       return {

@@ -1,8 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Header from "../Header";
 import Footer from "../Footer";
+import { getSearching } from "../Redux/Actions/Spotify";
 
-export default class Searches extends Component {
+class Searches extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { searching: "" };
+  }
+
   render() {
     return (
       <>
@@ -10,10 +18,10 @@ export default class Searches extends Component {
         <div className="App">
           <div className="container">
             <div className="row">
-              <div class="col-8">
-                <h5>Buscando: </h5>
+              <div className="col-8">
+                <h5>{`Buscando: ${this.props.searching}`} </h5>
               </div>
-              <div class="col-4">
+              <div className="col-4">
                 <h5>Ultimas Busquedas</h5>
               </div>
             </div>
@@ -24,3 +32,18 @@ export default class Searches extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    searching: state.aplication.searching
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  getSearching: () => dispatch(getSearching())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Searches);
