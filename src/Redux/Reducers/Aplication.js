@@ -2,6 +2,10 @@ import type from "../Actions/type";
 
 const initialState = {
   login: false,
+  user: {
+    username: "Marcelino",
+    password: "admin"
+  },
   token: "",
   albums: [],
   songs: [],
@@ -64,9 +68,10 @@ const reducer = (state = initialState, action) => {
         searching: state.searching
       };
     case type.ADD_SEARCHES:
+      console.log(state.searches);
       return {
         ...state,
-        searches: state.searches.push(action.text)
+        searches: state.searches.concat(action.text)
       };
     case type.LIST_SEARCHES:
       return {

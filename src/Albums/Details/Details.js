@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import Header from "../../Header";
-import Footer from "../../Footer";
 import ItemsTable from "../../Songs/ItemsTable";
 import { getAlbumsById } from "../../Services/Services";
 
@@ -46,7 +45,6 @@ export default class Details extends Component {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
