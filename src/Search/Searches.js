@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Header from "../Header";
-import Footer from "../Footer";
 import { getSearching } from "../Redux/Actions/Spotify";
 
 class Searches extends Component {
@@ -27,7 +26,6 @@ class Searches extends Component {
             </div>
           </div>
         </div>
-        <Footer />
       </>
     );
   }

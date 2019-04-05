@@ -7,19 +7,20 @@ import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./App";
+import Footer from "./Footer";
 import store from "./Redux/Stores/store";
 import { AppRoutes } from "./Routers";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <main>
         <App />
       </main>
+      <Footer />
       <AppRoutes />
     </Router>
   </Provider>,

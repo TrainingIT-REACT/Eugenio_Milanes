@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Header from "../Header";
-import Footer from "../Footer";
 import ItemsTable from "./ItemsTable";
 
 import { listSongs, setSong } from "../Redux/Actions/Spotify";
@@ -40,7 +39,6 @@ class Songs extends Component {
             </div>
           </div>
         </div>
-        <Footer />
       </>
     );
   }

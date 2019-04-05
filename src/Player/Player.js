@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { getLogin } from "../Redux/Actions/User";
 import { getSong } from "../Redux/Actions/Spotify";
 
 import "./styles.css";
@@ -31,17 +32,17 @@ class Player extends Component {
     });
   };
 
-  render() {
+  getPlayer() {
     let {
+      login,
       song: { music, name, poster, play }
     } = this.props;
-
-    return (
-      <>
+    if (login) {
+      return (
         <div className="shadow-lg bg-black rounded audio-player">
           <div className="player-controls scrubber">
             <p>{name}</p>
-            <span id="seekObjContainer">
+            <span>
               <audio ref={this.audio} src={music} controls autoPlay={play} />
             </span>
           </div>
@@ -53,19 +54,25 @@ class Player extends Component {
             />
           </div>
         </div>
-      </>
-    );
+      );
+    }
+  }
+
+  render() {
+    return <>{this.getPlayer()}</>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    song: state.aplication.song
+    song: state.aplication.song,
+    login: state.aplication.login
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getSong: () => dispatch(getSong())
+  getSong: () => dispatch(getSong()),
+  getLogin: () => dispatch(getLogin())
 });
 
 export default withRouter(

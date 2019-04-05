@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Header from "../Header";
-import Footer from "../Footer";
 import { listAlbums } from "../Redux/Actions/Spotify";
 
 import "./styles.css";
@@ -56,13 +55,15 @@ class Albums extends Component {
         <div className="App">
           <div className="container">
             <div className="row">
+              <div className="col-lg-12">
+                <h1>Listado de Albums...</h1>
+              </div>
               {albums.map((album, i) => {
                 return this.createCardAlbums(album, i);
               })}
             </div>
           </div>
         </div>
-        <Footer />
       </>
     );
   }

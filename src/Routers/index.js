@@ -1,13 +1,12 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-
 import Login from "../Login/Login";
 import Songs from "../Songs";
 import Albums from "../Albums";
 import Details from "../Albums/Details";
 import Searches from "../Search/Searches";
 import store from "../Redux/Stores";
-
+import Footer from "../Footer";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let { login } = store.getState().aplication;
   return (
@@ -28,15 +27,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     />
   );
 };
-
+const PrivateRoutes = () => (
+  <>
+    <Switch>
+      <PrivateRoute exact path="/" component={Songs} />
+      <PrivateRoute exact path="/songs" component={Songs} />
+      <PrivateRoute exact path="/songs/:id" component={Details} />
+      <PrivateRoute exact path="/albums" component={Albums} />
+      <PrivateRoute exact path="/searches" component={Searches} />
+    </Switch>
+    <Footer />
+  </>
+);
 export const AppRoutes = () => (
   <Switch>
     <Route path="/login" component={Login} />
     <Route path="/callback" component={Login} />
-    <PrivateRoute exact path="/" component={Songs} />
-    <PrivateRoute exact path="/songs" component={Songs} />
-    <PrivateRoute exact path="/songs/:id" component={Details} />
-    <PrivateRoute exact path="/albums" component={Albums} />
-    <PrivateRoute exact path="/searches" component={Searches} />
+    <Route component={PrivateRoutes} />
   </Switch>
 );
