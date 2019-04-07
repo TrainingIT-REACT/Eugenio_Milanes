@@ -1,0 +1,7 @@
+.search {
+  margin-top: 20px;
+}
+
+.col-4 search > ul > .list-group-item {
+  background-color: black;
+}

@@ -20,7 +20,6 @@ class Player extends Component {
       this.setState({ isPlay: true });
       return;
     }
-    console.log(this.audio.current);
     this.setState({ isPlay: !isPlay, isClick: !isPlay });
   }
 
@@ -37,6 +36,7 @@ class Player extends Component {
       login,
       song: { music, name, poster, play }
     } = this.props;
+
     if (login) {
       return (
         <div className="shadow-lg bg-black rounded audio-player">

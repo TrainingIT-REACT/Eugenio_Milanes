@@ -52,3 +52,18 @@ export const getSongsList = createAsyncAction("GETS", async () => {
   );
   return res.json();
 });
+
+export const searchMusic = createAsyncAction("GETS", async search => {
+  let query = search.replace(/ /, "+");
+  console.log(query);
+
+  const res = await fetch(
+    `https://api.spotify.com/v1/search?query=%22${query}%22&type=track&market=ES&offset=0&limit=50`,
+    {
+      headers: new Headers({
+        Authorization: "Bearer " + localStorage.getItem("token")
+      })
+    }
+  );
+  return res.json();
+});

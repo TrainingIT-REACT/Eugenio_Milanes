@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import LoadingOverlay from "react-loading-overlay";
 
 import {
   calculateToken,
@@ -14,98 +15,124 @@ import "./style.css";
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.inputUser = React.createRef();
+    this.inputPass = React.createRef();
     this.onClick = this.onClick.bind(this);
-    this.state = { token: "" };
+    this.state = { loading: true };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     calculateToken();
-    await 80;
-    getAlbumsList().payload.then(result => {
-      let albums = result.albums.items;
-      this.props.addAlbums(albums);
-    });
-
-    getSongsList().payload.then(result => {
-      let songsApi = result.tracks;
-
-      let songs = songsApi.filter((song, index) => {
-        if (song.preview_url) {
-          return song;
-        }
-        return null;
+    setTimeout(() => {
+      getAlbumsList().payload.then(result => {
+        let albums = result.albums.items;
+        this.props.addAlbums(albums);
       });
-      this.props.addSongs(songs);
+      getSongsList().payload.then(result => {
+        let songsApi = result.tracks;
 
-      let song = songs[0];
-      let setSong = {
-        music: song.preview_url,
-        poster: song.album.images[1].url,
-        name: song.name,
-        durations: song.duration_ms,
-        play: false
-      };
-      this.props.setSong(setSong);
-    });
+        let songs = songsApi.filter((song, index) => {
+          if (song.preview_url) {
+            return song;
+          }
+          return null;
+        });
+        this.props.addSongs(songs);
+
+        let song = songs[0];
+        let setSong = {
+          music: song.preview_url,
+          poster: song.album.images[1].url,
+          name: song.name,
+          durations: song.duration_ms,
+          play: false
+        };
+        this.props.setSong(setSong);
+        this.setState({ loading: false });
+      });
+    }, 3000);
   }
 
-  async onClick(e) {
+  onClick(e) {
     e.preventDefault();
+
+    let { username } = this.props;
+    let { password } = this.props;
+    let inputUser = this.inputUser.current.value;
+    let inputPass = this.inputPass.current.value;
+
+    this.props.history.push("/songs");
     this.props.setLogin(true);
-    await 20;
-    if (this.props.login) {
-      this.props.history.push("/songs");
-    }
+
+    // if (
+    //   inputUser.lenth === 0 ||
+    //   inputUser === "" ||
+    //   inputPass.lenth === 0 ||
+    //   inputPass === ""
+    // ) {
+    //   alert("Revise los campos de registro, por favor!");
+    // } else {
+    //   if (username === inputUser && password === inputPass) {
+    //     this.props.history.push("/songs");
+    //     this.props.setLogin(true);
+    //   } else {
+    //     alert("Usuario ó Contraseña, incorrecta!");
+    //   }
+    // }
   }
 
   render() {
+    let { loading } = this.state;
     return (
-      <div className="container">
-        <div className="col-md-6 login">
-          <div className="center-block">
-            <form className="form-signin">
-              <img
-                className="mb-4"
-                src={require("../Assets/banner.png")}
-                alt="ReacTify"
-                width="72"
-                height="72"
-              />
-              <h1 className="h3 mb-3 font-weight-normal color-login">
-                Bienbenidos a ReacTify:
-              </h1>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="localhost@gmail.com"
-                required=""
-                autoFocus=""
-              />
-              <br />
-              <input
-                type="password"
-                className="form-control"
-                placeholder="***********"
-                required=""
-              />
-              <br />
-              <button
-                className="btn btn-lg btn-primary btn-block"
-                onClick={this.onClick}
-              >
-                Entrar
-              </button>
-              <p className="mt-5 mb-3 text-muted">© ReacTify</p>
-            </form>
+      <LoadingOverlay active={loading} spinner text="Cargando datos...">
+        <div className="container">
+          <div className="col-md-6 login">
+            <div className="center-block">
+              <form className="form-signin">
+                <img
+                  className="mb-4"
+                  src={require("../Assets/banner.png")}
+                  alt="ReacTify"
+                  width="72"
+                  height="72"
+                />
+                <h1 className="h3 mb-3 font-weight-normal color-login">
+                  Bienbenidos a ReacTify:
+                </h1>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Admin"
+                  ref={this.inputUser}
+                />
+                <br />
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="*****"
+                  ref={this.inputPass}
+                />
+                <br />
+                <button
+                  className="btn btn-lg btn-primary btn-block"
+                  onClick={this.onClick}
+                >
+                  Entrar
+                </button>
+                <p className="mt-5 mb-3 text-muted">© ReacTify</p>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </LoadingOverlay>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
+    username: state.aplication.user.username,
+    password: state.aplication.user.password,
     login: state.aplication.login
   };
 };

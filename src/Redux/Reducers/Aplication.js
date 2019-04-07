@@ -3,7 +3,7 @@ import type from "../Actions/type";
 const initialState = {
   login: false,
   user: {
-    username: "Marcelino",
+    username: "Admin",
     password: "admin"
   },
   token: "",
@@ -16,8 +16,9 @@ const initialState = {
     durations: 0,
     play: false
   },
-  searches: [],
-  searching: ""
+  results: [],
+  searching: "",
+  lasts: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,14 +69,25 @@ const reducer = (state = initialState, action) => {
         searching: state.searching
       };
     case type.ADD_SEARCHES:
-      console.log(state.searches);
+      console.log("ultimas busquedas", state.lasts);
+      console.log("ultimas busquedas", action.text);
       return {
         ...state,
-        searches: state.searches.concat(action.text)
+        lasts: state.lasts.concat(action.text)
       };
     case type.LIST_SEARCHES:
       return {
-        searches: state.searches
+        lasts: state.lasts
+      };
+
+    case type.ADD_RESULTS:
+      return {
+        ...state,
+        results: action.songs
+      };
+    case type.LIST_RESULTS:
+      return {
+        results: state.results
       };
     default:
       return state;

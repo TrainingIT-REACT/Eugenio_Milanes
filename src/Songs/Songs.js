@@ -13,7 +13,7 @@ class Songs extends Component {
     this.state = { songs: [], icons: "fa-music" };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let songs = this.props.songs;
     this.setState({ songs: songs, song: null });
   }
