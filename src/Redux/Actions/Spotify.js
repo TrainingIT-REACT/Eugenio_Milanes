@@ -64,3 +64,16 @@ export const listSearches = () => {
     type: actions.LIST_SEARCHES
   };
 };
+
+export const addResults = songs => {
+  return {
+    type: actions.ADD_RESULTS,
+    songs: songs
+  };
+};
+
+export const listResults = () => {
+  return {
+    type: actions.LIST_RESULTS
+  };
+};

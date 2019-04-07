@@ -31,7 +31,6 @@ class TableItems extends Component {
 
   onClick = (song, play) => {
     this.setState({ isPlay: !play });
-
     let { picture } = this.state;
     let previewUrl = song.preview_url ? song.preview_url : song.preview_url;
     let image = song.album ? song.album.images[1].url : picture;
@@ -55,7 +54,7 @@ class TableItems extends Component {
     if (album) {
       date = album.release_date;
     }
-    let timestamp = song.duration_ms;
+    let timestamp = song.duration_ms ? song.duration_ms : "00";
     let mints = new Date(timestamp).getMinutes();
     let seconds = new Date(timestamp).getSeconds();
     var output = mints + ":" + seconds;

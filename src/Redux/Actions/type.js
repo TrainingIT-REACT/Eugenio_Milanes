@@ -12,7 +12,9 @@ const nameType = [
   "SET_SEARCHING",
   "GET_SEARCHING",
   "ADD_SEARCHES",
-  "LIST_SEARCHES"
+  "LIST_SEARCHES",
+  "ADD_RESULTS",
+  "LIST_RESULTS"
 ];
 
 const type = {};

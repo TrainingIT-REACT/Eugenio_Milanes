@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { setSearching, addSearches } from "../Redux/Actions/Spotify";
+import {
+  setSearching,
+  addSearches,
+  addResults
+} from "../Redux/Actions/Spotify";
+
+import { searchMusic } from "../Services/Services";
 
 class Search extends Component {
   constructor(props) {
@@ -10,7 +16,6 @@ class Search extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.inputSearch = React.createRef();
-    this.state = { searching: "" };
   }
 
   componentDidMount() {
@@ -20,25 +25,30 @@ class Search extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.setSearching("");
-  }
-
   onClick(e) {
     e.preventDefault();
     this.props.history.push("/searches");
   }
 
   onChange(e) {
-    let textValue = e.target.value;
-    this.setState({ searching: textValue });
-    this.props.setSearching(textValue);
+    let queryText = e.target.value;
+    this.props.setSearching(queryText);
+    searchMusic(queryText).payload.then(result => {
+      let searchApi = result.tracks.items;
+      let songs = searchApi.filter((song, index) => {
+        if (song.preview_url) {
+          return song;
+        }
+        return null;
+      });
+      this.props.addResults(songs);
+    });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    let { searching } = this.state;
-    this.props.addSearches(searching);
+    let queryText = this.inputSearch.current.value;
+    this.props.addSearches(queryText);
   }
 
   render() {
@@ -68,7 +78,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   setSearching: searching => dispatch(setSearching(searching)),
-  addSearches: text => dispatch(addSearches(text))
+  addSearches: text => dispatch(addSearches(text)),
+  addResults: songs => dispatch(addResults(songs))
 });
 
 export default withRouter(
