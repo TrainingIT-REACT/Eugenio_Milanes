@@ -33,29 +33,26 @@ class Player extends Component {
 
   getPlayer() {
     let {
-      login,
       song: { music, name, poster, play }
     } = this.props;
 
-    if (login) {
-      return (
-        <div className="shadow-lg bg-black rounded audio-player">
-          <div className="player-controls scrubber">
-            <p>{name}</p>
-            <span>
-              <audio ref={this.audio} src={music} controls autoPlay={play} />
-            </span>
-          </div>
-          <div className="album-image">
-            <img
-              src={poster}
-              className="border-0 float-left img-thumbnail"
-              alt="..."
-            />
-          </div>
+    return (
+      <div className="shadow-lg bg-black rounded audio-player">
+        <div className="player-controls scrubber">
+          <p>{name}</p>
+          <span>
+            <audio ref={this.audio} src={music} controls autoPlay={play} />
+          </span>
         </div>
-      );
-    }
+        <div className="album-image">
+          <img
+            src={poster}
+            className="border-0 float-left img-thumbnail"
+            alt="..."
+          />
+        </div>
+      </div>
+    );
   }
 
   render() {

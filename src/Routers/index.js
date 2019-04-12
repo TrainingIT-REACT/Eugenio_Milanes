@@ -36,7 +36,7 @@ const PrivateRoutes = () => (
       <PrivateRoute exact path="/albums" component={Albums} />
       <PrivateRoute exact path="/searches" component={Searches} />
     </Switch>
-    <Footer />
+    <Footer player={true} />
   </>
 );
 export const AppRoutes = () => (

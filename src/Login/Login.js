@@ -64,21 +64,21 @@ class Login extends Component {
     this.props.history.push("/songs");
     this.props.setLogin(true);
 
-    // if (
-    //   inputUser.lenth === 0 ||
-    //   inputUser === "" ||
-    //   inputPass.lenth === 0 ||
-    //   inputPass === ""
-    // ) {
-    //   alert("Revise los campos de registro, por favor!");
-    // } else {
-    //   if (username === inputUser && password === inputPass) {
-    //     this.props.history.push("/songs");
-    //     this.props.setLogin(true);
-    //   } else {
-    //     alert("Usuario ó Contraseña, incorrecta!");
-    //   }
-    // }
+    if (
+      inputUser.lenth === 0 ||
+      inputUser === "" ||
+      inputPass.lenth === 0 ||
+      inputPass === ""
+    ) {
+      alert("Revise los campos de registro, por favor!");
+    } else {
+      if (username === inputUser && password === inputPass) {
+        this.props.history.push("/songs");
+        this.props.setLogin(true);
+      } else {
+        alert("Usuario ó Contraseña, incorrecta!");
+      }
+    }
   }
 
   render() {

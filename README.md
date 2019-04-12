@@ -4,8 +4,8 @@ En esta plantilla encontrarás todo lo necesario para realizar la práctica fina
 
 A parte de la aplicación de React, esta plantilla incluye un servidor basadon en [json-server](https://github.com/typicode/json-server) al que puedes hacer peticiones. Este incluye dos tipos de recursos:
 
-* Álbums (albums)
-* Canciones (songs)
+- Álbums (albums)
+- Canciones (songs)
 
 Puedes ver los distintos parámetros en el fichero `./server/data.json`. A priori, no te hará falta modificar ese fichero, pero siempre puedes agregar nuevos elementos si quieres extender las funcionalidades de tu aplicación.
 
@@ -15,7 +15,12 @@ El proyecto se inicia directamente con `yarn start`.
 
 Este comando hace uso de `npm-run-all` que ejecuta el servidor y el cliente al mismo tiempo. El servidor estará escuchando en el puerto 3001 y la aplicación en el 3000. No obstante, la aplicación ya viene preconfigurada con un proxy que redirige cualquier llamada al servidor. Por ejemplo:
 
-```/albums -> http://localhost:3001/albums```
+`/albums -> http://localhost:3001/albums`
+
+## Credenciales
+
+- User: Admin
+- Pass: admin
 
 ## Dudas
 
@@ -23,5 +28,5 @@ Cualquier duda que tengáis sobre la plantilla o el proyecto la podéis resolver
 
 ## Créditos
 
-* Fotografía de la carátula de los álbums por [James Owen](https://unsplash.com/photos/c-NBiJrhwdM)
-* Audio compuesto por [Kevin MacLeod](https://twitter.com/kmacleod)
+- Fotografía de la carátula de los álbums por [James Owen](https://unsplash.com/photos/c-NBiJrhwdM)
+- Audio compuesto por [Kevin MacLeod](https://twitter.com/kmacleod)
